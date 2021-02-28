@@ -1,10 +1,7 @@
 package com.ilyamarvin.checkyourweather.Retrofit.Data;
 
-import com.google.gson.annotations.SerializedName;
-
 public class WeatherData {
 
-    @SerializedName("main")
     private Main main;
 
     public Main getMain() {
