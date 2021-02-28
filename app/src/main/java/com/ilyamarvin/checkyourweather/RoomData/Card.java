@@ -11,9 +11,9 @@ public class Card {
 
     private long date;
     private String name_city, description, main, icon;
-    private float morning_temp, day_temp, evening_temp, night_temp;
+    private double morning_temp, day_temp, evening_temp, night_temp;
 
-    public Card(long date, String name_city, String description, String main, String icon, float morning_temp, float day_temp, float evening_temp, float night_temp) {
+    public Card(long date, String name_city, String description, String main, String icon, double morning_temp, double day_temp, double evening_temp, double night_temp) {
         this.date = date;
         this.name_city = name_city;
         this.description = description;
@@ -53,19 +53,19 @@ public class Card {
         return icon;
     }
 
-    public float getMorning_temp() {
+    public double getMorning_temp() {
         return morning_temp;
     }
 
-    public float getDay_temp() {
+    public double getDay_temp() {
         return day_temp;
     }
 
-    public float getEvening_temp() {
+    public double getEvening_temp() {
         return evening_temp;
     }
 
-    public float getNight_temp() {
+    public double getNight_temp() {
         return night_temp;
     }
 }
