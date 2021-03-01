@@ -25,31 +25,51 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/weather_main"
+            android:id="@+id/weather_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Weather"
+            android:text="Temperature"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/weather_desc"
+            android:id="@+id/weather_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/weather_main"
+            android:layout_below="@+id/weather_temp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Description weather" />
+            android:text="Description weather"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
-            android:id="@+id/temp_now"
+            android:id="@+id/weather_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/city_name"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:text="Temperature" />
+            android:text="date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <ImageView
+            android:id="@+id/image_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:layout_alignEnd="@+id/weather_main"
+            android:layout_below="@+id/weather_main"
+            android:layout_alignRight="@+id/weather_main" />
+
+        <ImageView
+            android:id="@+id/expand_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_expand_more"
+            android:layout_below="@+id/weather_main"
+            android:layout_centerInParent="true"/>
+
 
 
     </RelativeLayout>

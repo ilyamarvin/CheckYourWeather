@@ -23,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     private CardViewModel cardViewModel;
 
-    private TextView temperature, mainWeather, descWeather;
+    private TextView temperature, mainWeather, dateWeather;
+
+    private ImageView imageWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Card deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
+        cardAdapter.setOnCardClickListener(new CardAdapter.OnCardClickListener() {
+            @Override
+            public void onCardClick(Card card) {
+
+            }
+        });
     }
 
     private void getWeatherData(String name) {
@@ -86,11 +96,40 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<WeatherData> weatherDataCall = apiInterface.getWeatherData(name);
+        mainWeather = findViewById(R.id.weather_main);
+        imageWeather = findViewById(R.id.image_weather);
+
+        weatherDataCall.enqueue(new Callback<WeatherData>() {
+            @Override
+            public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
+                try {
+                    mainWeather.setText(response.body().getWeather().getMain());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherData> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void getMainData(String name) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/data/2.5/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         Call<MainData> mainDataCall = apiInterface.getMainData(name);
-        Call<WeatherData> weatherDataCall = apiInterface.getWeatherData(name);
 
-        temperature = findViewById(R.id.temp_now);
+        temperature = findViewById(R.id.weather_temp);
 
         mainDataCall.enqueue(new Callback<MainData>() {
             @Override
@@ -107,27 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        mainWeather = findViewById(R.id.weather_main);
-        descWeather = findViewById(R.id.weather_desc);
-
-        weatherDataCall.enqueue(new Callback<WeatherData>() {
-            @Override
-            public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
-                try {
-                    mainWeather.setText(response.body().getWeather().getMain());
-                    descWeather.setText(response.body().getWeather().getDescription());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WeatherData> call, Throwable t) {
-
-            }
-        });
-
     }
 
 
@@ -172,9 +190,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String cityName = data.getStringExtra(AddCardActivity.EXTRA_CITY_NAME);
 
-            getWeatherData(cityName);
 
-            Card card = new Card(1614502800, cityName, "light snow", "Snow", "13n", -8.86, -4.22, -4.83, -8.2);
+            Card card = new Card(1614502800, cityName, "Snow", "13n", 0.1);
+            getWeatherData(cityName);
+            getMainData(cityName);
             cardViewModel.insert(card);
 
             Toast.makeText(this, "Card saved", Toast.LENGTH_SHORT).show();

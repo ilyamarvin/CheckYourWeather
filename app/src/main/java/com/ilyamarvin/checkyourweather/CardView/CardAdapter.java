@@ -17,6 +17,7 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
 
     private List<Card> cards = new ArrayList<>();
+    private OnCardClickListener listener;
 
     @NonNull
     @Override
@@ -30,8 +31,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     public void onBindViewHolder(@NonNull CardHolder holder, int position) {
         Card currentCard = cards.get(position);
         holder.textViewNameCity.setText(currentCard.getName_city());
-        holder.textViewWeatherMain.setText(currentCard.getMain());
-        holder.textViewWeatherDescription.setText(currentCard.getDescription());
     }
 
     @Override
@@ -50,15 +49,30 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
 
     class CardHolder extends RecyclerView.ViewHolder {
         private TextView textViewNameCity;
-        private TextView textViewWeatherMain;
-        private TextView textViewWeatherDescription;
 
         public CardHolder(@NonNull View itemView) {
             super(itemView);
             textViewNameCity = itemView.findViewById(R.id.city_name);
-            textViewWeatherMain = itemView.findViewById(R.id.weather_main);
-            textViewWeatherDescription = itemView.findViewById(R.id.weather_desc);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onCardClick(cards.get(position));
+
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnCardClickListener {
+        void onCardClick(Card card);
+    }
+
+    public void setOnCardClickListener(OnCardClickListener listener) {
+        this.listener = listener;
     }
 
 }

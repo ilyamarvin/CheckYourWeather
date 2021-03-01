@@ -44,7 +44,7 @@ public abstract class CardDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            cardDAO.insert(new Card(1614502800, "Moscow", "light snow", "Snow", "13n", -8.86, -4.22, -4.83 ,-8.2));
+            cardDAO.insert(new Card(1614502800, "Moscow",  "Snow", "13n", -8.86));
             return null;
         }
     }
