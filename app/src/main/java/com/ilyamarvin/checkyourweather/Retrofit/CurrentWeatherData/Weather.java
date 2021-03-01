@@ -1,4 +1,4 @@
-package com.ilyamarvin.checkyourweather.Retrofit.Data;
+package com.ilyamarvin.checkyourweather.Retrofit.CurrentWeatherData;
 
 public class Weather {
     private int id;

@@ -1,43 +1,42 @@
-package com.ilyamarvin.checkyourweather.Retrofit.Data;
+package com.ilyamarvin.checkyourweather.Retrofit.CurrentWeatherData;
 
 public class Main {
-
-    private float temp;
-    private float feels_like;
-    private float temp_min;
-    private float temp_max;
+    private double temp;
+    private double feels_like;
+    private int temp_min;
+    private double temp_max;
     private int pressure;
     private int humidity;
 
-    public float getTemp() {
+    public double getTemp() {
         return temp;
     }
 
-    public void setTemp(float temp) {
+    public void setTemp(double temp) {
         this.temp = temp;
     }
 
-    public float getFeels_like() {
+    public double getFeels_like() {
         return feels_like;
     }
 
-    public void setFeels_like(float feels_like) {
+    public void setFeels_like(double feels_like) {
         this.feels_like = feels_like;
     }
 
-    public float getTemp_min() {
+    public int getTemp_min() {
         return temp_min;
     }
 
-    public void setTemp_min(float temp_min) {
+    public void setTemp_min(int temp_min) {
         this.temp_min = temp_min;
     }
 
-    public float getTemp_max() {
+    public double getTemp_max() {
         return temp_max;
     }
 
-    public void setTemp_max(float temp_max) {
+    public void setTemp_max(double temp_max) {
         this.temp_max = temp_max;
     }
 
