@@ -37,7 +37,21 @@ dependencies {
     // Retrofit
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // RxJava2 Dependencies
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Dexter for simplifies the process of requesting permissions at runtime
+    implementation 'com.karumi:dexter:6.2.2'
+
+    // Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     def room_version = "2.2.6"
     def lifecycle_version = "2.3.0"
