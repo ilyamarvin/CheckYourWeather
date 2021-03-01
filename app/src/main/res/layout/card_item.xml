@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -36,10 +37,19 @@
             android:id="@+id/weather_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/weather_main"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/weather_main"
             android:text="Description weather" />
+
+        <TextView
+            android:id="@+id/temp_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/city_name"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:text="Temperature" />
 
 
     </RelativeLayout>

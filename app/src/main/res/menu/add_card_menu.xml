@@ -8,6 +8,10 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/delete_all_cards"
+        android:title="@string/delete_all_cards"/>
+
+    <item
         android:id="@+id/settings"
         android:title="@string/settings"/>
 </menu>

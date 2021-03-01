@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CheckYourWeather</string>
     <string name="settings">Настройки</string>
+    <string name="delete_all_cards">Удалить все города</string>
 </resources>

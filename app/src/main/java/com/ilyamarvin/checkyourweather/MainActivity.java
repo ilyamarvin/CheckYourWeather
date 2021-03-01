@@ -5,22 +5,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ilyamarvin.checkyourweather.CardView.CardAdapter;
 import com.ilyamarvin.checkyourweather.CardView.CardViewModel;
 import com.ilyamarvin.checkyourweather.Retrofit.ApiInterface;
+import com.ilyamarvin.checkyourweather.Retrofit.Data.MainData;
 import com.ilyamarvin.checkyourweather.Retrofit.Data.WeatherData;
 import com.ilyamarvin.checkyourweather.RoomData.Card;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CardViewModel cardViewModel;
 
-    private Button addCityButton;
-    private TextView tempText, descText, humidityText;
-    private EditText textField;
+    private TextView temperature, mainWeather, descWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
                 cardAdapter.setCards(cards);
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                cardViewModel.delete(cardAdapter.getCardAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(MainActivity.this, "Card deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
     private void getWeatherData(String name) {
@@ -76,15 +87,36 @@ public class MainActivity extends AppCompatActivity {
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
-        Call<WeatherData> call = apiInterface.getWeatherData(name);
+        Call<MainData> mainDataCall = apiInterface.getMainData(name);
+        Call<WeatherData> weatherDataCall = apiInterface.getWeatherData(name);
 
-        call.enqueue(new Callback<WeatherData>() {
+        temperature = findViewById(R.id.temp_now);
+
+        mainDataCall.enqueue(new Callback<MainData>() {
+            @Override
+            public void onResponse(Call<MainData> call, Response<MainData> response) {
+                try {
+                    temperature.setText(response.body().getMain().getTemp() + " C");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainData> call, Throwable t) {
+
+            }
+        });
+
+        mainWeather = findViewById(R.id.weather_main);
+        descWeather = findViewById(R.id.weather_desc);
+
+        weatherDataCall.enqueue(new Callback<WeatherData>() {
             @Override
             public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
                 try {
-                    tempText.setText("Temp " + response.body().getMain().getTemp() + " C");
-                    descText.setText("Feels Like " + response.body().getMain().getFeels_like());
-                    humidityText.setText("Humidity " + response.body().getMain().getHumidity());
+                    mainWeather.setText(response.body().getWeather().getMain());
+                    descWeather.setText(response.body().getWeather().getDescription());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -120,6 +152,12 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, ADD_NOTE_REQUEST);
         }
 
+        if (id == R.id.delete_all_cards) {
+            cardViewModel.deleteAllCards();
+            Toast.makeText(this, "All cards deleted", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
         if (id == R.id.settings) {
             return true;
         }
@@ -134,12 +172,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String cityName = data.getStringExtra(AddCardActivity.EXTRA_CITY_NAME);
 
+            getWeatherData(cityName);
+
             Card card = new Card(1614502800, cityName, "light snow", "Snow", "13n", -8.86, -4.22, -4.83, -8.2);
             cardViewModel.insert(card);
 
             Toast.makeText(this, "Card saved", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Card not saved", Toast.LENGTH_SHORT).show();
         }
     }

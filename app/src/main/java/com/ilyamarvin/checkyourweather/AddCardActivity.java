@@ -2,20 +2,17 @@ package com.ilyamarvin.checkyourweather;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ilyamarvin.checkyourweather.Retrofit.ApiInterface;
+import com.ilyamarvin.checkyourweather.Retrofit.Data.MainData;
 import com.ilyamarvin.checkyourweather.Retrofit.Data.WeatherData;
 
 import retrofit2.Call;
@@ -28,6 +25,9 @@ public class AddCardActivity extends AppCompatActivity {
     public static final String EXTRA_CITY_NAME = "com.ilyamarvin.checkyourweather.EXTRA_CITY_NAME";
     private EditText enterCityName;
     private Button addCityButton;
+
+    private TextView temperature, mainWeather, descWeather;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +62,5 @@ public class AddCardActivity extends AppCompatActivity {
         setResult(RESULT_OK, data);
         finish();
     }
-
 
 }

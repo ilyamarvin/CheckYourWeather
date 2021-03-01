@@ -2,13 +2,13 @@ package com.ilyamarvin.checkyourweather.Retrofit.Data;
 
 public class WeatherData {
 
-    private Main main;
+    private Weather weather;
 
-    public Main getMain() {
-        return main;
+    public Weather getWeather() {
+        return weather;
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setWeather(Weather weather) {
+        this.weather = weather;
     }
 }
