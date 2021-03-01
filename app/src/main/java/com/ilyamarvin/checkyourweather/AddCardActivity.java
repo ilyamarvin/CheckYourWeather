@@ -11,16 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ilyamarvin.checkyourweather.Retrofit.ApiInterface;
-import com.ilyamarvin.checkyourweather.Retrofit.Data.MainData;
-import com.ilyamarvin.checkyourweather.Retrofit.Data.WeatherData;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class AddCardActivity extends AppCompatActivity {
     public static final String EXTRA_CITY_NAME = "com.ilyamarvin.checkyourweather.EXTRA_CITY_NAME";
     private EditText enterCityName;

@@ -8,6 +8,7 @@
     android:layout_marginEnd="8dp">
 
     <RelativeLayout
+        android:id="@+id/city_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp">
@@ -61,16 +62,6 @@
             android:layout_alignEnd="@+id/weather_main"
             android:layout_below="@+id/weather_main"
             android:layout_alignRight="@+id/weather_main" />
-
-        <ImageView
-            android:id="@+id/expand_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_expand_more"
-            android:layout_below="@+id/weather_main"
-            android:layout_centerInParent="true"/>
-
-
 
     </RelativeLayout>
 
