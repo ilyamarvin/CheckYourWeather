@@ -31,6 +31,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     public void onBindViewHolder(@NonNull CardHolder holder, int position) {
         Card currentCard = cards.get(position);
         holder.textViewNameCity.setText(currentCard.getName_city());
+        holder.textViewMainWeather.setText(currentCard.getMain());
+        holder.textViewTemp.setText((currentCard.getTemp_now())+ " °C");
     }
 
     @Override
@@ -48,11 +50,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     }
 
     class CardHolder extends RecyclerView.ViewHolder {
-        private TextView textViewNameCity;
+        private TextView textViewNameCity, textViewMainWeather, textViewTemp;
 
         public CardHolder(@NonNull View itemView) {
             super(itemView);
             textViewNameCity = itemView.findViewById(R.id.city_name);
+            textViewMainWeather = itemView.findViewById(R.id.weather_main);
+            textViewTemp = itemView.findViewById(R.id.weather_temp);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

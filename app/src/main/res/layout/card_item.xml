@@ -59,9 +59,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_btn_speak_now"
-            android:layout_alignEnd="@+id/weather_main"
-            android:layout_below="@+id/weather_main"
-            android:layout_alignRight="@+id/weather_main" />
+            android:layout_toStartOf="@+id/weather_temp"
+            android:layout_toLeftOf="@+id/weather_temp"
+
+            android:background="#E5E5E5"/>
 
     </RelativeLayout>
 
